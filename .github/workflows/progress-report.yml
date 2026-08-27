@@ -1,0 +1,18 @@
+name: Progress report
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1"
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  report:
+    name: Course progress
+    uses: YOUR-ORG/web-programming-ci-utils/.github/workflows/progress-report.yml@0000000000000000000000000000000000000000
+    with:
+      utils_repository: YOUR-ORG/web-programming-ci-utils
+      utils_ref: "0000000000000000000000000000000000000000"
