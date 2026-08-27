@@ -12,7 +12,7 @@ permissions:
 jobs:
   report:
     name: Course progress
-    uses: YOUR-ORG/web-programming-ci-utils/.github/workflows/progress-report.yml@0000000000000000000000000000000000000000
+    uses: web-programming-contest/web-programming-ci-utils/.github/workflows/progress-report.yml@0000000000000000000000000000000000000000
     with:
-      utils_repository: YOUR-ORG/web-programming-ci-utils
+      utils_repository: web-programming-contest/web-programming-ci-utils
       utils_ref: "0000000000000000000000000000000000000000"

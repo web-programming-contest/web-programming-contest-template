@@ -2,7 +2,7 @@ name: Submission
 
 on:
   pull_request:
-    branches: [main]
+    branches: [master]
     types: [opened, reopened, synchronize, edited]
 
 permissions:
@@ -12,7 +12,7 @@ permissions:
 jobs:
   submission:
     name: Automated submission checks
-    uses: YOUR-ORG/web-programming-ci-utils/.github/workflows/submission.yml@0000000000000000000000000000000000000000
+    uses: web-programming-contest/web-programming-ci-utils/.github/workflows/submission.yml@0000000000000000000000000000000000000000
     with:
-      utils_repository: YOUR-ORG/web-programming-ci-utils
+      utils_repository: web-programming-contest/web-programming-ci-utils
       utils_ref: "0000000000000000000000000000000000000000"
