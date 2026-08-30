@@ -3,7 +3,8 @@ name: Progress report
 on:
   workflow_dispatch:
   schedule:
-    - cron: "17 3 * * 1"
+    - cron: "30 0 * * 1"
+      timezone: "Europe/Moscow"
 
 permissions:
   contents: read
@@ -12,7 +13,7 @@ permissions:
 jobs:
   report:
     name: Course progress
-    uses: web-programming-contest/web-programming-ci-utils/.github/workflows/progress-report.yml@9bd622c56ffce5d400423e0b343442c89b5e3846
+    uses: web-programming-contest/web-programming-ci-utils/.github/workflows/progress-report.yml@f8828647665fbbca11e0d203b57f07ac83af91cf
     with:
       utils_repository: web-programming-contest/web-programming-ci-utils
-      utils_ref: "9bd622c56ffce5d400423e0b343442c89b5e3846"
+      utils_ref: "f8828647665fbbca11e0d203b57f07ac83af91cf"
