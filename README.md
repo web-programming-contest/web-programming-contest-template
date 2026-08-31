@@ -80,8 +80,9 @@ ivanov.ivan/lab2/
 - файлы другого студента;
 - несколько лабораторных одновременно;
 - изменения `.github`, CI или корневых конфигов;
-- `package.json` или lock-файлы внутри лабораторной;
-- `node_modules`;
+- lock-файлы внутри лабораторной;
+- `package.json` внутри lab1–lab4 или вне корня lab5;
+- `node_modules` и `dist`;
 - symlink, submodule и executable-файлы.
 
 Изображения помещайте в подкаталог `assets/` своей лабораторной:
@@ -100,7 +101,7 @@ surname.name/lab5/assets/cover.webp
 | lab2   | `README.md` и ровно один из `solution.js`, `solution.ts`                                              |
 | lab3   | `README.md` и ровно один из `solution.js`, `solution.ts`                                              |
 | lab4   | `README.md`, `index.html`, `styles.css`, ровно один `main.js/main.ts`, ровно один `model.js/model.ts` |
-| lab5   | `README.md`, `index.html`, `styles.css`, ровно один `main.js/main.ts`                                 |
+| lab5   | `README.md`, React `package.json`, HTML, CSS и один JS/JSX/TS/TSX entry                               |
 
 Файл `submission.json` не используется. Номер варианта берётся из названия PR.
 
@@ -310,17 +311,30 @@ export function groupBooksByGenre(libraries) {
 
 ## 10. Требования к lab5
 
-Lab5 — интерактивное браузерное приложение.
+Lab5 — интерактивное React-приложение. Его можно написать на JavaScript или
+TypeScript и собирать локально с помощью Vite либо Webpack.
 
 ```text
 surname.name/lab5/
 ├── README.md
+├── package.json
 ├── index.html
-├── styles.css
-├── main.js
-├── components/       # Опционально
+├── src/
+│   ├── main.jsx       # Либо main.tsx/index.jsx/index.tsx
+│   ├── styles.css
+│   └── components/    # Опционально
 └── assets/           # Опционально
 ```
+
+Также поддерживается Webpack-структура с `public/index.html`. HTML должен быть
+ровно один: `index.html` либо `public/index.html`. Entry можно подключить через
+локальный `script src` или разместить в `main.*`, `src/main.*`, `src/index.*`,
+где расширение — `.js`, `.jsx`, `.ts` или `.tsx`.
+
+`package.json` должен объявлять `react`, `react-dom`, `vite` или `webpack`, а
+также script `build`. CI проверяет manifest, но не устанавливает студенческие
+зависимости и не выполняет scripts: приложение безопасно пересобирается
+закреплённым toolchain grader.
 
 Корневой элемент приложения должен иметь:
 
@@ -342,6 +356,15 @@ surname.name/lab5/
 Приложение проверяется без доступа к интернету. Не загружайте данные,
 JavaScript, CSS или изображения из внешнего API/CDN. Все необходимые ресурсы и
 начальные данные должны находиться внутри лабораторной.
+
+Для локального запуска сначала установите зависимости внутри lab5, затем
+используйте script выбранного сборщика:
+
+```bash
+cd surname.name/lab5
+npm install
+npm run dev
+```
 
 Публичные селекторы и сценарии находятся в
 [контрактах lab5](https://github.com/web-programming-contest/web-programming-ci-utils/blob/master/docker-grader/contracts/lab5/scenarios.json).
@@ -405,17 +428,19 @@ inline styles.
 npx tsc \
   --noEmit \
   --strict \
+  --jsx react-jsx \
   --target ES2022 \
   --module ESNext \
   --moduleResolution Bundler \
-  --lib ES2022,DOM \
+  --lib ES2022,DOM,DOM.Iterable \
   --skipLibCheck \
   surname.name/lab2/solution.ts
 ```
 
 Для UI-работы вместо `solution.ts` укажите точки входа, например
-`surname.name/lab4/main.ts surname.name/lab4/model.ts`. Импортированные ими
-TypeScript-компоненты будут проверены автоматически.
+`surname.name/lab4/main.ts surname.name/lab4/model.ts` или
+`surname.name/lab5/src/main.tsx`. Импортированные ими TypeScript-компоненты
+будут проверены автоматически.
 
 ### Рекомендуемый порядок
 
